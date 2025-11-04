@@ -1,0 +1,18 @@
+select disk 0
+clean
+convert gpt
+
+rem -- EFI System Partition (100 MB, FAT32)
+create partition efi size=100
+format quick fs=fat32 label="System"
+assign letter=S
+
+rem -- MSR Partition (Microsoft ajánlás - 16 MB, nincs betűjel)
+create partition msr size=16
+
+rem -- Windows Partition (maradék)
+create partition primary
+format quick fs=ntfs label="Windows"
+assign letter=C
+
+exit
